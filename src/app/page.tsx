@@ -2,17 +2,10 @@
 
 import ReactLenis from "lenis/react";
 
-import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
+import { ContainerTextFlip } from "@/components/ui/container-text-flip";
 import { StickyCards } from "@/components/ui/sticky-cards";
 
-const words = [
-  {
-    text: "hello",
-  },
-  {
-    text: "world",
-  },
-];
+const words = ["hello", "world"];
 
 const cards = [
   { id: 1, image: "/images/sticky/card-1.svg" },
@@ -27,7 +20,7 @@ export default function Home() {
     <ReactLenis root>
       <main className="w-full">
         <section className="h-screen w-full flex items-center justify-center overflow-hidden">
-          <TypewriterEffectSmooth words={words} />
+          <ContainerTextFlip words={words} />
         </section>
         <section className="h-screen w-full">
           <StickyCards cards={cards} />

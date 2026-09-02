@@ -27,7 +27,10 @@ const ScrollLinePath = ({
     <section
       ref={ref}
       className={cn(
-        "relative flex h-[250vh] w-full flex-col items-center bg-background px-4 text-foreground",
+        // Kept under 2x viewport: past that, the sticky child unpins while
+        // already fully scrolled out of view, leaving a blank gap before
+        // the next section (position: sticky has no "hold" past that point).
+        "relative flex h-[185vh] w-full flex-col items-center bg-background px-4 text-foreground",
         className,
       )}
     >
@@ -50,7 +53,7 @@ const ScrollLinePath = ({
           viewBox="0 0 800 600"
           fill="none"
           className="pointer-events-none absolute inset-0 -z-10 h-full w-full"
-          preserveAspectRatio="xMidYMid slice"
+          preserveAspectRatio="xMidYMid meet"
         >
           <motion.path
             d="M 60 40

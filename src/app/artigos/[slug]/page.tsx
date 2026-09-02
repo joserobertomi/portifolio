@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { stories } from "@/data/stories";
+import { articles } from "@/data/articles";
 
 const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
   day: "2-digit",
@@ -11,44 +11,46 @@ const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
 });
 
 export function generateStaticParams() {
-  return stories.map((story) => ({ slug: story.slug }));
+  return articles.map((article) => ({ slug: article.slug }));
 }
 
 export async function generateMetadata(
-  props: PageProps<"/stories/[slug]">,
+  props: PageProps<"/artigos/[slug]">,
 ): Promise<Metadata> {
   const { slug } = await props.params;
-  const story = stories.find((item) => item.slug === slug);
+  const article = articles.find((item) => item.slug === slug);
 
-  return { title: story ? `${story.title} | José Roberto` : "Story" };
+  return { title: article ? `${article.title} | José Roberto` : "Artigo" };
 }
 
-export default async function StoryPage(props: PageProps<"/stories/[slug]">) {
+export default async function ArticlePage(
+  props: PageProps<"/artigos/[slug]">,
+) {
   const { slug } = await props.params;
-  const story = stories.find((item) => item.slug === slug);
+  const article = articles.find((item) => item.slug === slug);
 
-  if (!story) {
+  if (!article) {
     notFound();
   }
 
   return (
     <article className="mx-auto w-full max-w-2xl px-4 pt-32 pb-24">
       <Link
-        href="/stories"
+        href="/artigos"
         className="text-xs opacity-50 hover:underline hover:opacity-100"
       >
-        ← Stories
+        ← Artigos
       </Link>
 
       <h1 className="mt-6 text-3xl font-medium tracking-tight md:text-4xl">
-        {story.title}
+        {article.title}
       </h1>
       <span className="mt-2 block font-mono text-xs opacity-50">
-        {dateFormatter.format(new Date(story.date))}
+        {dateFormatter.format(new Date(article.date))}
       </span>
 
       <div className="mt-10 flex flex-col gap-5 text-base leading-relaxed opacity-90">
-        {story.content.map((paragraph, index) => (
+        {article.content.map((paragraph, index) => (
           <p key={index}>{paragraph}</p>
         ))}
       </div>

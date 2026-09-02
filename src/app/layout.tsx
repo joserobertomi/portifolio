@@ -22,7 +22,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="pt-BR"
       className={`${jakartaSans.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <SmoothScroll>
           <GlassNav />
           <main className="flex flex-1 flex-col">{children}</main>

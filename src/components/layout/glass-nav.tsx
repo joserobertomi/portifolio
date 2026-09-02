@@ -9,8 +9,9 @@ const links = [
   { href: "/", label: "Início" },
   { href: "/trajetoria", label: "Trajetória" },
   { href: "/projects", label: "Projects" },
-  { href: "/stories", label: "Stories" },
-  { href: "/contato", label: "Converse comigo" },
+  { href: "/artigos", label: "Artigos" },
+  { href: "/frases", label: "Frases" },
+  { href: "/contato", label: "Contato" },
 ];
 
 const GlassNav = () => {

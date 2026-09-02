@@ -1,11 +1,11 @@
-export interface Story {
+export interface Article {
   slug: string;
   title: string;
   date: string;
   content: string[];
 }
 
-export const stories: Story[] = [
+export const articles: Article[] = [
   {
     slug: "lorem-ipsum-dolor-sit-amet",
     title: "Lorem ipsum dolor sit amet",

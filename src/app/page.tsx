@@ -1,6 +1,7 @@
 import { FlipWords } from "@/components/ui/flip-words";
 
 const roles = ["engenheiro", "builder", "curioso", "empreendedor"];
+const longestRole = roles.reduce((a, b) => (b.length > a.length ? b : a));
 
 const bio =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam.";
@@ -18,7 +19,17 @@ export default function Home() {
         <div className="flex flex-col gap-4">
           <h1 className="flex items-center whitespace-nowrap text-4xl font-semibold tracking-tight md:text-5xl">
             José Roberto,
-            <FlipWords words={roles} className="text-4xl font-semibold md:text-5xl" />
+            <span className="relative inline-block">
+              <span className="invisible" aria-hidden="true">
+                {longestRole}
+              </span>
+              <span className="absolute inset-0 flex items-center">
+                <FlipWords
+                  words={roles}
+                  className="text-4xl font-semibold md:text-5xl"
+                />
+              </span>
+            </span>
           </h1>
           <p className="max-w-md text-base opacity-80">{bio}</p>
         </div>

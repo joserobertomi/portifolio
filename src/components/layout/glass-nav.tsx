@@ -7,8 +7,7 @@ import { cn } from "@/lib/utils";
 
 const links = [
   { href: "/", label: "Início" },
-  { href: "/trajetoria", label: "Trajetória" },
-  { href: "/projects", label: "Projects" },
+  { href: "/projects", label: "Projetos" },
   { href: "/artigos", label: "Artigos" },
   { href: "/frases", label: "Frases" },
   { href: "/contato", label: "Contato" },

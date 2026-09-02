@@ -1,16 +1,28 @@
-import { ContainerTextFlip } from "@/components/ui/container-text-flip";
+import { FlipWords } from "@/components/ui/flip-words";
 
-const words = ["trajetória", "história", "jornada", "vida"];
+const roles = ["engenheiro", "builder", "curioso", "empreendedor"];
+
+const bio =
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam.";
 
 export default function Home() {
   return (
-    <section className="flex h-screen w-full flex-col items-center justify-center gap-6 overflow-hidden px-4 text-center">
-      <span className="text-lg font-medium md:text-2xl">Eu sou José, e essa é minha</span>
-      <ContainerTextFlip words={words} />
-      <p className="max-w-xl text-sm opacity-70 md:text-base">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-        eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      </p>
+    <section className="flex min-h-screen w-full items-center justify-center px-4 pt-24 pb-12 lg:h-screen lg:pt-20 lg:pb-0">
+      <div className="flex max-w-3xl flex-col items-center gap-8 text-center sm:flex-row sm:items-center sm:text-left">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/profile-placeholder.svg"
+          alt="José Roberto"
+          className="h-32 w-32 shrink-0 rounded-full object-cover sm:h-40 sm:w-40"
+        />
+        <div className="flex flex-col gap-4">
+          <h1 className="flex items-center whitespace-nowrap text-4xl font-semibold tracking-tight md:text-5xl">
+            José Roberto,
+            <FlipWords words={roles} className="text-4xl font-semibold md:text-5xl" />
+          </h1>
+          <p className="max-w-md text-base opacity-80">{bio}</p>
+        </div>
+      </div>
     </section>
   );
 }

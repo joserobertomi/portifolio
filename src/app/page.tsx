@@ -1,7 +1,5 @@
 import { FlipWords } from "@/components/ui/flip-words";
-import { ScrollLinePath } from "@/components/ui/scroll-line-path";
-import { Timeline } from "@/components/ui/timeline";
-import { timeline } from "@/data/timeline";
+import TimelineSection from "@/components/timeline-section";
 
 const roles = ["engenheiro", "builder", "curioso", "empreendedor"];
 const longestRole = roles.reduce((a, b) => (b.length > a.length ? b : a));
@@ -40,12 +38,7 @@ export default function Home() {
         </div>
       </section>
 
-      <ScrollLinePath
-        eyebrow="Minha trajetória"
-        title="Lorem ipsum dolor sit amet"
-        subtitle="Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
-      />
-      <Timeline years={timeline} />
+      <TimelineSection />
     </>
   );
 }

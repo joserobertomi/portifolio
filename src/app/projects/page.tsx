@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <>
-      <div className="mx-auto max-w-3xl px-4 pt-32 pb-8 text-center">
+      <div className="mx-auto max-w-3xl px-4 pt-8 pb-8 text-center sm:pt-32">
         <h1 className="text-4xl font-medium tracking-tight md:text-6xl">
           Projects
         </h1>

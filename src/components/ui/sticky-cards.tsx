@@ -30,6 +30,7 @@ const StickyCards = ({
 }: StickyCardsProps) => {
   const container = useRef(null);
   const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const lastWidthRef = useRef<number | null>(null);
 
   useGSAP(
     () => {
@@ -91,7 +92,21 @@ const StickyCards = ({
         );
       }
 
-      const resizeObserver = new ResizeObserver(() => {
+      // Mobile browsers resize the viewport (and this pinned container)
+      // just from the URL bar showing/hiding while scrolling. Refreshing
+      // ScrollTrigger on every one of those height-only blips causes the
+      // pin to jump; only a real width change (rotation, real resize)
+      // warrants a refresh.
+      const resizeObserver = new ResizeObserver((entries) => {
+        const width = entries[0]?.contentRect.width;
+        if (width === undefined) return;
+        if (
+          lastWidthRef.current !== null &&
+          Math.abs(width - lastWidthRef.current) < 1
+        ) {
+          return;
+        }
+        lastWidthRef.current = width;
         ScrollTrigger.refresh();
       });
 
@@ -101,8 +116,12 @@ const StickyCards = ({
 
       return () => {
         resizeObserver.disconnect();
+        // Killing the timeline also kills the ScrollTrigger it owns
+        // (they were created together via the `scrollTrigger` config
+        // above) — ScrollTrigger.getAll().forEach(kill) would instead
+        // tear down every trigger on the page, including ones owned by
+        // other components.
         scrollTimeline.kill();
-        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       };
     },
     { scope: container },
@@ -110,7 +129,14 @@ const StickyCards = ({
 
   return (
     <div className={cn("relative w-full", className)} ref={container}>
-      <div className="sticky-cards relative flex h-screen w-full items-center justify-center overflow-hidden p-3 lg:p-8">
+      <div
+        // h-svh (not h-screen/100vh) so the pinned box uses the stable,
+        // URL-bar-visible viewport height instead of one that grows and
+        // shrinks as the address bar animates. The extra bottom padding
+        // below sm reserves room for the fixed mobile nav (~4.5rem) plus
+        // its safe-area inset, so the card and its caption clear it.
+        className="sticky-cards relative flex h-svh w-full items-center justify-center overflow-hidden p-3 max-sm:pb-[calc(4.5rem+env(safe-area-inset-bottom))] lg:p-8"
+      >
         <div
           className={cn(
             "relative h-[90%] w-full max-w-sm overflow-hidden rounded-lg sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl",

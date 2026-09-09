@@ -19,11 +19,27 @@ export const Timeline = ({ data, heading, description }: TimelineProps) => {
   const [height, setHeight] = useState(0);
 
   useEffect(() => {
-    if (ref.current) {
-      const rect = ref.current.getBoundingClientRect();
-      setHeight(rect.height);
-    }
-  }, [ref]);
+    const el = ref.current;
+    if (!el) return;
+
+    const measure = () => {
+      setHeight(el.getBoundingClientRect().height);
+    };
+
+    measure();
+
+    const resizeObserver = new ResizeObserver(() => measure());
+    resizeObserver.observe(el);
+
+    // Webfonts loading in can reflow the text after the initial mount
+    // (more noticeable on mobile, where lines wrap more), so re-measure
+    // once they're ready too.
+    document.fonts?.ready.then(measure);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -59,7 +75,7 @@ export const Timeline = ({ data, heading, description }: TimelineProps) => {
             key={index}
             className="flex justify-start pt-10 md:pt-40 md:gap-10"
           >
-            <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
+            <div className="relative md:sticky flex flex-col md:flex-row z-40 items-center md:top-40 self-start max-w-xs lg:max-w-sm md:w-full">
               <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-background flex items-center justify-center">
                 <div className="h-4 w-4 rounded-full bg-foreground/10 border border-foreground/20 p-2" />
               </div>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
@@ -13,28 +13,32 @@ export const FlipWords = ({
   className?: string;
 }) => {
   const [currentWord, setCurrentWord] = useState(words[0]);
-  const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
-  // thanks for the fix Julian - https://github.com/Julian-AT
-  const startAnimation = useCallback(() => {
-    const word = words[words.indexOf(currentWord) + 1] || words[0];
-    setCurrentWord(word);
-    setIsAnimating(true);
-  }, [currentWord, words]);
-
+  // Self-rescheduling interval: the cycle no longer depends on
+  // AnimatePresence's onExitComplete firing reliably. It just keeps
+  // advancing on its own clock and is cleaned up on unmount/prop change,
+  // so no timers leak and the rotation can never get stuck.
   useEffect(() => {
-    if (!isAnimating)
-      setTimeout(() => {
-        startAnimation();
-      }, duration);
-  }, [isAnimating, duration, startAnimation]);
+    if (words.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setCurrentWord((prev) => {
+        const nextIndex = (words.indexOf(prev) + 1) % words.length;
+        return words[nextIndex];
+      });
+    }, duration);
+
+    return () => clearInterval(interval);
+  }, [words, duration]);
 
   return (
-    <AnimatePresence
-      onExitComplete={() => {
-        setIsAnimating(false);
-      }}
-    >
+    // mode="wait" bounds AnimatePresence to at most one exiting + one
+    // queued node: without it, the state can advance every `duration`
+    // regardless of whether the previous word's exit animation actually
+    // finished (e.g. a backgrounded tab pausing rAF), letting old,
+    // never-removed nodes pile up as overlapping ghosts once the tab is
+    // foregrounded again.
+    <AnimatePresence mode="wait">
       <motion.div
         initial={{
           opacity: 0,
@@ -55,10 +59,13 @@ export const FlipWords = ({
           x: 40,
           filter: "blur(8px)",
           scale: 2,
-          position: "absolute",
         }}
+        // Both the entering and exiting words are always absolutely
+        // positioned (filling the parent's reserved box) so neither one
+        // ever occupies document flow — the visible word can't push or
+        // escape the box the caller reserved for it.
         className={cn(
-          "z-10 inline-block relative text-left text-foreground px-2",
+          "absolute inset-0 z-10 flex items-center justify-center text-left text-foreground px-2 sm:justify-start",
           className
         )}
         key={currentWord}

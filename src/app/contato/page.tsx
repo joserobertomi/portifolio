@@ -12,7 +12,7 @@ const channels = [
 
 export default function ContatoPage() {
   return (
-    <div className="mx-auto flex h-screen w-full max-w-2xl flex-col items-center justify-center gap-8 px-4 text-center">
+    <div className="mx-auto flex w-full max-w-2xl flex-col items-center justify-center gap-8 px-4 py-20 text-center sm:min-h-svh">
       <h1 className="text-4xl font-medium tracking-tight md:text-6xl">
         Converse comigo
       </h1>
@@ -26,7 +26,7 @@ export default function ContatoPage() {
           <li key={channel.label}>
             <a
               href={channel.href}
-              className="flex items-baseline justify-center gap-3 text-sm hover:underline"
+              className="flex items-baseline justify-center gap-3 py-3 text-sm hover:underline"
             >
               <span className="opacity-50">{channel.label}</span>
               <span className="font-medium">{channel.value}</span>

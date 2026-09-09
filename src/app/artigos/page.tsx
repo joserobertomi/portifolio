@@ -19,7 +19,7 @@ export default function ArtigosPage() {
   );
 
   return (
-    <div className="mx-auto w-full max-w-2xl px-4 pt-32 pb-24">
+    <div className="mx-auto w-full max-w-2xl px-4 pt-8 pb-24 sm:pt-32">
       <h1 className="text-4xl font-medium tracking-tight md:text-5xl">
         Artigos
       </h1>
@@ -34,7 +34,7 @@ export default function ArtigosPage() {
               href={`/artigos/${article.slug}`}
               className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-4"
             >
-              <span className="w-32 shrink-0 font-mono text-xs opacity-50">
+              <span className="sm:w-32 shrink-0 font-mono text-xs opacity-50">
                 {dateFormatter.format(new Date(article.date))}
               </span>
               <span className="text-base hover:underline">

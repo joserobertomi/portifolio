@@ -34,7 +34,7 @@ export default async function ArticlePage(
   }
 
   return (
-    <article className="mx-auto w-full max-w-2xl px-4 pt-32 pb-24">
+    <article className="mx-auto w-full max-w-2xl px-4 pt-8 pb-24 sm:pt-32">
       <Link
         href="/artigos"
         className="text-xs opacity-50 hover:underline hover:opacity-100"

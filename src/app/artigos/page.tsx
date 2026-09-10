@@ -36,7 +36,7 @@ export default function ArtigosPage() {
               <span className="sm:w-32 shrink-0 font-mono text-xs opacity-50">
                 {dateFormatter.format(new Date(article.date))}
               </span>
-              <span className="text-base hover:underline">
+              <span className="text-base font-medium hover:underline">
                 {article.title}
               </span>
             </Link>

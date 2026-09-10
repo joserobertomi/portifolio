@@ -13,7 +13,7 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
               className="aspect-video w-full object-cover"
             />
           </div>
-          <h2 className="mt-5 text-2xl font-semibold tracking-tight sm:text-3xl">
+          <h2 className="mt-5 text-2xl font-medium tracking-tight sm:text-3xl">
             {project.title}
           </h2>
           <p className="mt-3 max-w-md text-sm leading-relaxed opacity-70 sm:text-base">

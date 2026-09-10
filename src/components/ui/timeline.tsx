@@ -57,7 +57,7 @@ export const Timeline = ({ data, heading, description }: TimelineProps) => {
       {(heading || description) && (
         <div className="max-w-7xl mx-auto py-20 px-4 md:px-8 lg:px-10">
           {heading && (
-            <h2 className="text-lg md:text-4xl mb-4 text-foreground max-w-4xl">
+            <h2 className="mb-4 max-w-4xl text-lg font-medium tracking-tight text-foreground md:text-4xl">
               {heading}
             </h2>
           )}

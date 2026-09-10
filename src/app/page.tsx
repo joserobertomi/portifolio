@@ -19,12 +19,12 @@ export default function Home() {
             className="h-32 w-32 shrink-0 rounded-full object-cover sm:h-40 sm:w-40"
           />
           <div className="flex flex-col gap-4">
-            <h1 className="flex flex-col items-center gap-1 text-4xl font-semibold tracking-tight sm:flex-row sm:items-center sm:gap-2 sm:whitespace-nowrap md:text-5xl">
+            <h1 className="flex flex-col items-center gap-1 text-4xl font-medium tracking-tight sm:flex-row sm:items-center sm:gap-2 sm:whitespace-nowrap md:text-5xl">
               <span>José Roberto,</span>
               <FlipWords
                 words={roles}
                 sizeMode="stable"
-                className="text-4xl font-semibold md:text-5xl"
+                className="text-4xl font-medium md:text-5xl"
               />
             </h1>
             <p className="max-w-md text-base opacity-80">

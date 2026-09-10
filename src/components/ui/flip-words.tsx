@@ -7,12 +7,15 @@ export const FlipWords = ({
   words,
   duration = 3000,
   className,
-  autoSize = false,
+  sizeMode,
 }: {
   words: string[];
   duration?: number;
   className?: string;
-  autoSize?: boolean;
+  // "hug": the box spring-animates to hug each word as it rotates.
+  // "stable": the box permanently reserves the longest word's width, so
+  // surrounding content never shifts. Omit to leave sizing to the caller.
+  sizeMode?: "hug" | "stable";
 }) => {
   const [currentWord, setCurrentWord] = useState(words[0]);
   const [width, setWidth] = useState<number | null>(null);
@@ -35,14 +38,13 @@ export const FlipWords = ({
     return () => clearInterval(interval);
   }, [words, duration]);
 
-  // In autoSize mode the component owns its box: the hidden inline copy of
-  // the current word below reserves the line height, and a ResizeObserver
-  // on it feeds the spring-animated width — so the box hugs each word
-  // (tracking breakpoint and font-load changes too) instead of staying the
-  // size of the longest one. The width starts moving the moment the word
+  // In "hug" mode the box tracks the current word: the hidden inline copy
+  // below reserves the line height, and a ResizeObserver on it feeds the
+  // spring-animated width — so the box hugs each word (tracking breakpoint
+  // and font-load changes too). The width starts moving the moment the word
   // changes, in sync with the outgoing word's exit.
   useLayoutEffect(() => {
-    if (!autoSize) return;
+    if (sizeMode !== "hug") return;
     const measurer = measureRef.current;
     if (!measurer) return;
 
@@ -50,7 +52,7 @@ export const FlipWords = ({
     const observer = new ResizeObserver(() => setWidth(measurer.offsetWidth));
     observer.observe(measurer);
     return () => observer.disconnect();
-  }, [autoSize]);
+  }, [sizeMode]);
 
   const animatedWord = (
     // mode="wait" bounds AnimatePresence to at most one exiting + one
@@ -88,7 +90,7 @@ export const FlipWords = ({
         // Both the entering and exiting words are always absolutely
         // positioned (filling the reserved box) so neither one ever
         // occupies document flow — the visible word can't push or escape
-        // the box, whether the caller reserved it or autoSize built it.
+        // the box, whether the caller reserved it or sizeMode built it.
         className={cn(
           "absolute inset-0 z-10 flex items-center justify-center text-left text-foreground px-2 sm:justify-start",
           className
@@ -128,8 +130,35 @@ export const FlipWords = ({
     </AnimatePresence>
   );
 
-  if (!autoSize) return animatedWord;
+  if (!sizeMode) return animatedWord;
 
+  // "stable": every word is rendered invisibly in the same grid cell, so
+  // the box permanently reserves the width of the longest word (tracking
+  // breakpoint and font-load changes automatically, with no JS measuring).
+  // The box never resizes as words rotate, so centered or inline
+  // surrounding content — bio text, profile image — stays put and the page
+  // can't gain horizontal overflow from the rotation.
+  if (sizeMode === "stable") {
+    return (
+      <span className="relative inline-grid">
+        {words.map((word) => (
+          <span
+            key={word}
+            aria-hidden="true"
+            className={cn(
+              "invisible col-start-1 row-start-1 inline-block whitespace-nowrap px-2",
+              className
+            )}
+          >
+            {word}
+          </span>
+        ))}
+        {animatedWord}
+      </span>
+    );
+  }
+
+  // "hug": the box spring-animates to the measured width of each word.
   return (
     <motion.span
       initial={false}

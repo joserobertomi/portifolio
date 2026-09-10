@@ -23,7 +23,7 @@ export default function Home() {
               <span>José Roberto,</span>
               <FlipWords
                 words={roles}
-                autoSize
+                sizeMode="stable"
                 className="text-4xl font-semibold md:text-5xl"
               />
             </h1>

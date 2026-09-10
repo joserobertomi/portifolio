@@ -26,7 +26,7 @@ export default function ProjectsPage() {
             <span>Projetos em</span>
             <FlipWords
               words={disciplines}
-              autoSize
+              sizeMode="hug"
               className="text-4xl font-semibold sm:text-5xl md:text-7xl"
             />
           </h1>

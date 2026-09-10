@@ -17,10 +17,6 @@ const disciplines = [
   "AI",
 ];
 
-const longestDiscipline = disciplines.reduce((longest, discipline) =>
-  discipline.length > longest.length ? discipline : longest,
-);
-
 export default function ProjectsPage() {
   return (
     <>
@@ -28,15 +24,11 @@ export default function ProjectsPage() {
         <div className="max-w-4xl text-center">
           <h1 className="flex flex-wrap items-center justify-center gap-x-3 text-4xl font-semibold tracking-tight sm:text-5xl md:text-7xl">
             <span>Projetos em</span>
-            <span className="relative inline-block text-left">
-              <span className="invisible" aria-hidden="true">
-                {longestDiscipline}
-              </span>
-              <FlipWords
-                words={disciplines}
-                className="text-4xl font-semibold sm:text-5xl md:text-7xl"
-              />
-            </span>
+            <FlipWords
+              words={disciplines}
+              autoSize
+              className="text-4xl font-semibold sm:text-5xl md:text-7xl"
+            />
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed opacity-70 sm:text-lg">
             Uma seleção de coisas que construí — da infraestrutura aos produtos

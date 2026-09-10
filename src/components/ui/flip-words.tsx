@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
@@ -7,12 +7,16 @@ export const FlipWords = ({
   words,
   duration = 3000,
   className,
+  autoSize = false,
 }: {
   words: string[];
   duration?: number;
   className?: string;
+  autoSize?: boolean;
 }) => {
   const [currentWord, setCurrentWord] = useState(words[0]);
+  const [width, setWidth] = useState<number | null>(null);
+  const measureRef = useRef<HTMLSpanElement>(null);
 
   // Self-rescheduling interval: the cycle no longer depends on
   // AnimatePresence's onExitComplete firing reliably. It just keeps
@@ -31,7 +35,24 @@ export const FlipWords = ({
     return () => clearInterval(interval);
   }, [words, duration]);
 
-  return (
+  // In autoSize mode the component owns its box: the hidden inline copy of
+  // the current word below reserves the line height, and a ResizeObserver
+  // on it feeds the spring-animated width — so the box hugs each word
+  // (tracking breakpoint and font-load changes too) instead of staying the
+  // size of the longest one. The width starts moving the moment the word
+  // changes, in sync with the outgoing word's exit.
+  useLayoutEffect(() => {
+    if (!autoSize) return;
+    const measurer = measureRef.current;
+    if (!measurer) return;
+
+    setWidth(measurer.offsetWidth);
+    const observer = new ResizeObserver(() => setWidth(measurer.offsetWidth));
+    observer.observe(measurer);
+    return () => observer.disconnect();
+  }, [autoSize]);
+
+  const animatedWord = (
     // mode="wait" bounds AnimatePresence to at most one exiting + one
     // queued node: without it, the state can advance every `duration`
     // regardless of whether the previous word's exit animation actually
@@ -61,9 +82,9 @@ export const FlipWords = ({
           scale: 2,
         }}
         // Both the entering and exiting words are always absolutely
-        // positioned (filling the parent's reserved box) so neither one
-        // ever occupies document flow — the visible word can't push or
-        // escape the box the caller reserved for it.
+        // positioned (filling the reserved box) so neither one ever
+        // occupies document flow — the visible word can't push or escape
+        // the box, whether the caller reserved it or autoSize built it.
         className={cn(
           "absolute inset-0 z-10 flex items-center justify-center text-left text-foreground px-2 sm:justify-start",
           className
@@ -101,5 +122,28 @@ export const FlipWords = ({
         ))}
       </motion.div>
     </AnimatePresence>
+  );
+
+  if (!autoSize) return animatedWord;
+
+  return (
+    <motion.span
+      initial={false}
+      animate={width == null ? undefined : { width }}
+      transition={{ type: "spring", stiffness: 170, damping: 26 }}
+      className="relative inline-block"
+    >
+      <span
+        ref={measureRef}
+        aria-hidden="true"
+        className={cn(
+          "invisible inline-block whitespace-nowrap px-2",
+          className
+        )}
+      >
+        {currentWord}
+      </span>
+      {animatedWord}
+    </motion.span>
   );
 };

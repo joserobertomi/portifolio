@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { PageHeader } from "@/components/page-header";
 import { quotes } from "@/data/quotes";
 
 export const metadata: Metadata = {
@@ -8,13 +9,11 @@ export const metadata: Metadata = {
 
 export default function FrasesPage() {
   return (
-    <div className="mx-auto w-full max-w-2xl px-4 pt-8 pb-24 sm:pt-32">
-      <h1 className="text-4xl font-medium tracking-tight md:text-5xl">
-        Frases
-      </h1>
-      <p className="mt-4 text-sm opacity-70">
-        Algumas frases que gosto de revisitar de vez em quando.
-      </p>
+    <div className="mx-auto w-full max-w-2xl px-5 pt-8 pb-24 sm:pt-32">
+      <PageHeader
+        title="Frases"
+        description="Algumas frases que gosto de revisitar de vez em quando."
+      />
 
       <ul className="mt-12 flex flex-col divide-y divide-foreground/10">
         {quotes.map((quote) => (

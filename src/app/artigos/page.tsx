@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { PageHeader } from "@/components/page-header";
 import { articles } from "@/data/articles";
 
 export const metadata: Metadata = {
@@ -19,13 +20,11 @@ export default function ArtigosPage() {
   );
 
   return (
-    <div className="mx-auto w-full max-w-2xl px-4 pt-8 pb-24 sm:pt-32">
-      <h1 className="text-4xl font-medium tracking-tight md:text-5xl">
-        Artigos
-      </h1>
-      <p className="mt-4 text-sm opacity-70">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      </p>
+    <div className="mx-auto w-full max-w-2xl px-5 pt-8 pb-24 sm:pt-32">
+      <PageHeader
+        title="Artigos"
+        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+      />
 
       <ul className="mt-12 flex flex-col divide-y divide-foreground/10">
         {sorted.map((article) => (

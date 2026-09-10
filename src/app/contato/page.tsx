@@ -12,7 +12,7 @@ const channels = [
 
 export default function ContatoPage() {
   return (
-    <div className="mx-auto flex w-full max-w-2xl flex-col items-center justify-center gap-8 px-4 py-20 text-center sm:min-h-svh">
+    <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col items-center justify-center gap-8 px-4 pt-16 pb-28 text-center sm:py-20">
       <h1 className="text-4xl font-medium tracking-tight md:text-6xl">
         Converse comigo
       </h1>

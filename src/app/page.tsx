@@ -10,24 +10,24 @@ const bioLinkClass =
 export default function Home() {
   return (
     <>
-      <section className="flex min-h-svh w-full items-center justify-center overflow-x-clip px-4 pt-12 pb-20 sm:pt-24 sm:pb-12 lg:h-screen lg:pt-20 lg:pb-0">
-        <div className="flex max-w-3xl flex-col items-center gap-8 text-center sm:flex-row sm:items-center sm:text-left">
+      <section className="flex min-h-svh w-full items-center justify-center overflow-x-clip px-4 pt-12 pb-20 sm:pt-24 sm:pb-12 lg:h-screen lg:py-0">
+        <div className="flex max-w-3xl flex-col items-center gap-8 text-center sm:flex-row sm:items-center sm:text-left lg:max-w-4xl lg:gap-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/profile-placeholder.svg"
             alt="José Roberto"
-            className="h-32 w-32 shrink-0 rounded-full object-cover sm:h-40 sm:w-40"
+            className="h-32 w-32 shrink-0 rounded-full object-cover sm:h-40 sm:w-40 lg:h-48 lg:w-48"
           />
           <div className="flex flex-col gap-4">
-            <h1 className="flex flex-col items-center gap-1 text-4xl font-medium tracking-tight sm:flex-row sm:items-center sm:gap-2 sm:whitespace-nowrap md:text-5xl">
+            <h1 className="flex flex-col items-center gap-1 text-4xl font-medium tracking-tight sm:flex-row sm:items-center sm:gap-2 sm:whitespace-nowrap md:text-5xl lg:text-[3.5rem]">
               <span>José Roberto,</span>
               <FlipWords
                 words={roles}
                 sizeMode="stable"
-                className="text-4xl font-medium md:text-5xl"
+                className="text-4xl font-medium md:text-5xl lg:text-[3.5rem]"
               />
             </h1>
-            <p className="max-w-md text-base opacity-80">
+            <p className="max-w-md text-base opacity-80 lg:max-w-lg lg:text-lg">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua — veja
               meus{" "}

@@ -63,9 +63,9 @@ export const StickyScroll = ({ content }: { content: StickyScrollItem[] }) => {
               ref={(element) => {
                 itemRefs.current[index] = element;
               }}
-              className={`flex min-h-[52svh] flex-col justify-center border-t border-foreground/10 py-14 first:border-t-0 first:lg:min-h-[calc(100svh-7rem)] lg:min-h-[62svh] lg:py-20 ${
+              className={`flex min-h-[52svh] flex-col justify-center py-14 first:lg:mb-[calc(3.5rem-19svh)] first:lg:min-h-[calc(100svh-7rem)] lg:min-h-[62svh] lg:py-20 ${
                 index === content.length - 1
-                  ? "lg:sticky lg:top-24 lg:h-[calc(100svh-7rem)]"
+                  ? "lg:sticky lg:top-24 lg:mt-[calc(19svh-3.5rem)] lg:-translate-y-[calc(19svh-3.5rem)]"
                   : ""
               }`}
             >

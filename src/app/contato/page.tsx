@@ -7,7 +7,11 @@ export const metadata: Metadata = {
 const channels = [
   { label: "E-mail", value: "seu@email.com", href: "mailto:seu@email.com" },
   { label: "LinkedIn", value: "linkedin.com/in/seu-usuario", href: "#" },
-  { label: "GitHub", value: "github.com/seu-usuario", href: "#" },
+  {
+    label: "GitHub",
+    value: "github.com/joserobertomi",
+    href: "https://github.com/joserobertomi",
+  },
 ];
 
 export default function ContatoPage() {

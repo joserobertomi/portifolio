@@ -1,26 +1,52 @@
 import type { Metadata } from "next";
 
-import { StickyCards } from "@/components/ui/sticky-cards";
+import { FlipWords } from "@/components/ui/flip-words";
+import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
 import { projects } from "@/data/projects";
 
 export const metadata: Metadata = {
   title: "Projects | José Roberto",
 };
 
+const disciplines = [
+  "backend",
+  "plataforma",
+  "CLI",
+  "agents",
+  "data science",
+  "AI",
+];
+
+const longestDiscipline = disciplines.reduce((longest, discipline) =>
+  discipline.length > longest.length ? discipline : longest,
+);
+
 export default function ProjectsPage() {
   return (
     <>
-      <div className="mx-auto max-w-3xl px-4 pt-8 pb-8 text-center sm:pt-32">
-        <h1 className="text-4xl font-medium tracking-tight md:text-6xl">
-          Projects
-        </h1>
-        <p className="mt-4 text-sm opacity-70 md:text-base">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
-      </div>
-      <section className="w-full">
-        <StickyCards cards={projects} />
+      <section className="flex min-h-svh items-center justify-center px-4 py-24">
+        <div className="max-w-4xl text-center">
+          <h1 className="flex flex-wrap items-center justify-center gap-x-3 text-4xl font-semibold tracking-tight sm:text-5xl md:text-7xl">
+            <span>Projetos em</span>
+            <span className="relative inline-block text-left">
+              <span className="invisible" aria-hidden="true">
+                {longestDiscipline}
+              </span>
+              <FlipWords
+                words={disciplines}
+                className="text-4xl font-semibold sm:text-5xl md:text-7xl"
+              />
+            </span>
+          </h1>
+          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed opacity-70 sm:text-lg">
+            Uma seleção de coisas que construí — da infraestrutura aos produtos
+            que chegam nas mãos de quem usa.
+          </p>
+        </div>
+      </section>
+
+      <section aria-label="Projetos selecionados" className="pb-20 sm:pb-32">
+        <StickyScroll content={projects} />
       </section>
     </>
   );

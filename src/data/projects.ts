@@ -1,6 +1,11 @@
-import type { CardData } from "@/components/ui/sticky-cards";
+export interface Project {
+  id: number;
+  image: string;
+  title: string;
+  description: string;
+}
 
-export const projects: CardData[] = [
+export const projects: Project[] = [
   {
     id: 1,
     image: "/images/sticky/card-1.svg",

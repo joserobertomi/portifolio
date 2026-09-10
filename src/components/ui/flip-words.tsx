@@ -77,7 +77,11 @@ export const FlipWords = ({
         exit={{
           opacity: 0,
           y: -40,
-          x: 40,
+          // Alternate the exit side per word so the cycle doesn't fling
+          // every word the same way: even-indexed words exit right, odd
+          // ones left. The cycle advances one index at a time, so
+          // consecutive exits always alternate.
+          x: 40 * (words.indexOf(currentWord) % 2 === 0 ? 1 : -1),
           filter: "blur(8px)",
           scale: 2,
         }}

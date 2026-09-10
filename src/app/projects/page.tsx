@@ -20,7 +20,7 @@ const disciplines = [
 export default function ProjectsPage() {
   return (
     <>
-      <section className="flex min-h-svh items-center justify-center px-4 py-24">
+      <section className="flex min-h-svh items-center justify-center overflow-x-clip px-4 py-24">
         <div className="max-w-4xl text-center">
           <h1 className="flex flex-wrap items-center justify-center gap-x-3 text-4xl font-semibold tracking-tight sm:text-5xl md:text-7xl">
             <span>Projetos em</span>

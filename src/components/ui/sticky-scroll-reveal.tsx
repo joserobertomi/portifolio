@@ -12,7 +12,6 @@ type StickyScrollItem = {
 
 export const StickyScroll = ({ content }: { content: StickyScrollItem[] }) => {
   const [activeCard, setActiveCard] = useState(0);
-  const [isExiting, setIsExiting] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<Array<HTMLElement | null>>([]);
 
@@ -38,15 +37,6 @@ export const StickyScroll = ({ content }: { content: StickyScrollItem[] }) => {
 
       setActiveCard((current) =>
         current === closestIndex ? current : closestIndex,
-      );
-
-      const containerBottom = containerRef.current?.getBoundingClientRect().bottom;
-      const nextIsExiting =
-        containerBottom !== undefined &&
-        containerBottom <= window.innerHeight + 192;
-
-      setIsExiting((current) =>
-        current === nextIsExiting ? current : nextIsExiting,
       );
     };
 
@@ -114,11 +104,7 @@ export const StickyScroll = ({ content }: { content: StickyScrollItem[] }) => {
         }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.2, ease: "easeOut" }}
-        className={`hidden h-[calc(100svh-7rem)] items-center lg:flex lg:top-24 ${
-          isExiting
-            ? "lg:fixed lg:right-[max(2rem,calc((100vw-72rem)/2+3rem))] lg:w-[27rem]"
-            : "lg:sticky"
-        }`}
+        className="hidden h-[calc(100svh-7rem)] items-center lg:sticky lg:top-24 lg:flex"
       >
         <div className="w-full overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}

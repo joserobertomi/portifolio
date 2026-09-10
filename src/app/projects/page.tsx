@@ -45,7 +45,7 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      <section aria-label="Projetos selecionados" className="pb-20 sm:pb-32">
+      <section aria-label="Projetos selecionados">
         <StickyScroll content={projects} />
       </section>
     </>

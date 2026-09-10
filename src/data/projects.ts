@@ -41,4 +41,11 @@ export const projects: Project[] = [
     description:
       "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.",
   },
+  {
+    id: 6,
+    image: "/images/sticky/card-6.svg",
+    title: "Aenean Commodo",
+    description:
+      "Curabitur ullamcorper ultricies nisi, nam eget dui etiam rhoncus.",
+  },
 ];

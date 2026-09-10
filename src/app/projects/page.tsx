@@ -1,44 +1,26 @@
 import type { Metadata } from "next";
 
-import { FlipWords } from "@/components/ui/flip-words";
-import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
+import { ProjectGrid } from "@/components/project-grid";
 import { projects } from "@/data/projects";
 
 export const metadata: Metadata = {
   title: "Projects | José Roberto",
 };
 
-const disciplines = [
-  "backend",
-  "plataforma",
-  "CLI",
-  "agents",
-  "data science",
-  "AI",
-];
-
 export default function ProjectsPage() {
   return (
     <>
-      <section className="flex min-h-svh items-center justify-center overflow-x-clip px-4 py-24">
-        <div className="max-w-4xl text-center">
-          <h1 className="flex flex-wrap items-center justify-center gap-x-3 text-4xl font-semibold tracking-tight sm:text-5xl md:text-7xl">
-            <span>Projetos em</span>
-            <FlipWords
-              words={disciplines}
-              sizeMode="hug"
-              className="text-4xl font-semibold sm:text-5xl md:text-7xl"
-            />
-          </h1>
-          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed opacity-70 sm:text-lg">
-            Uma seleção de coisas que construí — da infraestrutura aos produtos
-            que chegam nas mãos de quem usa.
-          </p>
-        </div>
+      <section className="mx-auto w-full max-w-7xl px-5 pt-28 pb-4 lg:px-8 lg:pt-36">
+        <h1 className="text-4xl font-medium tracking-tight md:text-5xl">
+          Projetos
+        </h1>
+        <p className="mt-4 text-sm opacity-70">
+          Uma seleção de coisas que construí, da infraestrutura aos produtos.
+        </p>
       </section>
 
       <section aria-label="Projetos selecionados">
-        <StickyScroll content={projects} />
+        <ProjectGrid projects={projects} />
       </section>
     </>
   );

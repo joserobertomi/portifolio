@@ -53,7 +53,7 @@ export const StickyScroll = ({ content }: { content: StickyScrollItem[] }) => {
   return (
     <div
       ref={containerRef}
-      className="relative mx-auto grid w-full max-w-6xl grid-cols-1 gap-10 px-5 lg:grid-cols-[minmax(0,0.9fr)_minmax(22rem,0.7fr)] lg:gap-24 lg:px-8"
+      className="relative mx-auto grid w-full max-w-6xl grid-cols-1 gap-10 px-5 lg:max-w-7xl lg:grid-cols-[minmax(0,0.8fr)_minmax(28rem,1fr)] lg:gap-24 lg:px-8"
     >
       <div className="min-w-0">
         <div className="mx-auto max-w-xl lg:mx-0">
@@ -88,7 +88,7 @@ export const StickyScroll = ({ content }: { content: StickyScrollItem[] }) => {
                 <img
                   src={item.image}
                   alt={`Prévia do projeto ${item.title}`}
-                  className="aspect-[3/4] w-full object-cover"
+                  className="aspect-video w-full object-cover"
                 />
               </div>
             </article>
@@ -111,7 +111,7 @@ export const StickyScroll = ({ content }: { content: StickyScrollItem[] }) => {
           <img
             src={content[activeCard].image}
             alt={`Prévia do projeto ${content[activeCard].title}`}
-            className="aspect-[3/4] w-full object-cover"
+            className="aspect-video w-full object-cover"
           />
         </div>
       </motion.div>

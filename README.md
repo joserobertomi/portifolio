@@ -16,7 +16,13 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You can start editing the page by modifying `src/app/page.tsx`. The page auto-updates as you edit the file.
+
+The home page (Sobre) composes `TimelineSection` with the shared `Timeline`
+component. Journey entries live in `src/data/timeline.ts`, ordered manually by
+start date, newest first. Each entry displays a month/year and, when applicable,
+its full period. Update that file to maintain the journey; the profile photo is
+stored locally at `public/images/jose-roberto.jpg`.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 

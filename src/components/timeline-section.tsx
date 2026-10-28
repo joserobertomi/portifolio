@@ -2,27 +2,35 @@ import { Timeline } from "@/components/ui/timeline";
 import { timeline } from "@/data/timeline";
 
 export default function TimelineSection() {
-  const data = timeline.map((yearGroup) => ({
-    title: String(yearGroup.year),
+  const data = timeline.map((event) => ({
+    title: event.date,
     content: (
-      <div key={yearGroup.year} className="flex flex-col gap-6">
-        {yearGroup.events.map((event) => (
-          <div key={event.title}>
-            <h3 className="text-lg font-medium">{event.title}</h3>
-            <p className="mt-1 text-sm text-foreground/70">
-              {event.description}
-            </p>
-          </div>
-        ))}
-      </div>
+      <article>
+        <h3 className="text-xl font-medium tracking-tight sm:text-2xl">
+          {event.title}
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-foreground/70">
+          {event.institution}
+        </p>
+        {event.period && (
+          <p className="mt-1 text-sm text-foreground/70">{event.period}</p>
+        )}
+        <div className="mt-5 space-y-4 text-sm leading-relaxed text-foreground/80 sm:text-base">
+          {event.description.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </div>
+      </article>
     ),
   }));
 
   return (
-    <Timeline
-      data={data}
-      heading="Minha trajetória"
-      description="Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
-    />
+    <section id="trajetoria" aria-label="Minha trajetória" className="scroll-mt-24">
+      <Timeline
+        data={data}
+        heading="Minha trajetória"
+        description="Da robótica à construção de produtos com inteligência artificial. Experiências, pesquisas e aprendizados, do presente aos primeiros passos."
+      />
+    </section>
   );
 }

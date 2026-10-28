@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { href: "/", label: "Início" },
+  { href: "/", label: "Sobre" },
   { href: "/projects", label: "Projetos" },
   { href: "/artigos", label: "Artigos" },
   { href: "/frases", label: "Frases" },
@@ -27,6 +27,7 @@ const GlassNav = () => {
             <Link
               key={link.href}
               href={link.href}
+              aria-current={isLinkActive(link.href) ? "page" : undefined}
               className={cn(
                 "shrink-0 rounded-full px-3 py-1.5 text-sm font-medium whitespace-nowrap transition-colors",
                 isLinkActive(link.href)
@@ -50,8 +51,9 @@ const GlassNav = () => {
           <Link
             key={link.href}
             href={link.href}
+            aria-current={isLinkActive(link.href) ? "page" : undefined}
             className={cn(
-              "flex flex-1 flex-col items-center justify-center rounded-full px-1 py-2 text-[11px] font-medium whitespace-nowrap transition-colors",
+              "flex min-h-11 flex-1 flex-col items-center justify-center rounded-full px-1 py-2 text-[11px] font-medium whitespace-nowrap transition-colors",
               isLinkActive(link.href)
                 ? "bg-foreground text-background"
                 : "text-foreground/70 hover:text-foreground",

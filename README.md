@@ -24,6 +24,14 @@ start date, newest first. Each entry displays a month/year and, when applicable,
 its full period. Update that file to maintain the journey; the profile photo is
 stored locally at `public/images/jose-roberto.jpg`.
 
+The journey filters are Tudo, Experiência, Pesquisa, Formação, and Conquistas.
+Set each entry's `category` in `src/data/timeline.ts`; courses, training, and
+certifications belong to Formação. Filtering preserves the chronological order.
+Run `npm test` to check the category contents and order.
+
+The scroll-linked trace lights up each marker when it reaches its position.
+Reduced-motion preferences show the fully lit path without transitions.
+
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More

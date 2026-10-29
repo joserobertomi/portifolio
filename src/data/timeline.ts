@@ -1,4 +1,12 @@
+export const timelineCategories = [
+  "Experiência",
+  "Pesquisa",
+  "Formação",
+  "Conquistas",
+] as const;
+
 export interface TimelineEvent {
+  category: (typeof timelineCategories)[number];
   date: string;
   title: string;
   institution: string;
@@ -8,6 +16,7 @@ export interface TimelineEvent {
 
 export const timeline: TimelineEvent[] = [
   {
+    category: "Pesquisa",
     date: "out. 2026",
     title: "Pesquisador voluntário",
     institution: "PMI Goiás Chapter",
@@ -17,6 +26,7 @@ export const timeline: TimelineEvent[] = [
     ],
   },
   {
+    category: "Experiência",
     date: "ago. 2026",
     title: "Mentoria em inteligência artificial",
     institution: "Colégio Verum",
@@ -27,6 +37,7 @@ export const timeline: TimelineEvent[] = [
     ],
   },
   {
+    category: "Experiência",
     date: "jan. 2026",
     title: "Engenharia de software na SADI",
     institution: "SADI · São Paulo, remoto",
@@ -37,6 +48,7 @@ export const timeline: TimelineEvent[] = [
     ],
   },
   {
+    category: "Experiência",
     date: "out. 2025",
     title: "Produtos e projetos de inovação",
     institution: "Instituto de Tecnologia Anexo Brasil · Goiânia, híbrido",
@@ -48,6 +60,7 @@ export const timeline: TimelineEvent[] = [
     ],
   },
   {
+    category: "Experiência",
     date: "abr. 2025",
     title: "Automações e desenvolvimento web",
     institution: "CDI Premium · Goiânia, presencial",
@@ -58,6 +71,7 @@ export const timeline: TimelineEvent[] = [
     ],
   },
   {
+    category: "Pesquisa",
     date: "set. 2024",
     title: "Pesquisa em inteligência artificial",
     institution: "Instituto Federal de Goiás · Anápolis",
@@ -69,6 +83,7 @@ export const timeline: TimelineEvent[] = [
     ],
   },
   {
+    category: "Pesquisa",
     date: "set. 2023",
     title: "Um veículo autônomo para aprender construindo",
     institution: "Instituto Federal de Goiás · Anápolis",
@@ -80,6 +95,7 @@ export const timeline: TimelineEvent[] = [
     ],
   },
   {
+    category: "Pesquisa",
     date: "jan. 2023",
     title: "Primeiros passos na pesquisa em IA",
     institution: "Instituto Federal de Goiás · Oficinas 4.0",
@@ -90,6 +106,7 @@ export const timeline: TimelineEvent[] = [
     ],
   },
   {
+    category: "Formação",
     date: "set. 2022",
     title: "Inovação em uma equipe multidisciplinar",
     institution: "IFG · Lapassion em Rede – Metodologia Brampssol",
@@ -100,6 +117,7 @@ export const timeline: TimelineEvent[] = [
     ],
   },
   {
+    category: "Formação",
     date: "mar. 2022",
     title: "Ciência da Computação",
     institution: "Instituto Federal de Goiás",
@@ -109,6 +127,7 @@ export const timeline: TimelineEvent[] = [
     ],
   },
   {
+    category: "Conquistas",
     date: "dez. 2021",
     title: "Prata nacional na Olimpíada Brasileira de Robótica",
     institution: "Olimpíada Brasileira de Robótica",
@@ -117,6 +136,7 @@ export const timeline: TimelineEvent[] = [
     ],
   },
   {
+    category: "Conquistas",
     date: "nov. 2021",
     title: "Robótica, programação e a primeira conquista em equipe",
     institution: "Olimpíada Brasileira de Robótica",
@@ -125,3 +145,9 @@ export const timeline: TimelineEvent[] = [
     ],
   },
 ];
+
+export function filterTimeline(category: string) {
+  return timeline.filter(
+    (event) => category === "Tudo" || event.category === category,
+  );
+}

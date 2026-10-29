@@ -1,11 +1,18 @@
+"use client";
+
+import { useState } from "react";
+
 import { Timeline } from "@/components/ui/timeline";
-import { timeline } from "@/data/timeline";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { filterTimeline, timelineCategories } from "@/data/timeline";
 
 export default function TimelineSection() {
-  const data = timeline.map((event) => ({
+  const [category, setCategory] = useState("Tudo");
+  const data = filterTimeline(category).map((event) => ({
+    id: `${event.date}-${event.title}`,
     title: event.date,
     content: (
-      <article>
+      <article key={`${event.date}-${event.title}`}>
         <h3 className="text-xl font-medium tracking-tight sm:text-2xl">
           {event.title}
         </h3>
@@ -30,6 +37,27 @@ export default function TimelineSection() {
         data={data}
         heading="Minha trajetória"
         description="Da robótica à construção de produtos com inteligência artificial. Experiências, pesquisas e aprendizados, do presente aos primeiros passos."
+        controls={
+          <>
+            <ToggleGroup
+              type="single"
+              value={category}
+              onValueChange={(value) => {
+                if (value) setCategory(value);
+              }}
+              aria-label="Filtrar trajetória por categoria"
+            >
+              {["Tudo", ...timelineCategories].map((item) => (
+                <ToggleGroupItem key={item} value={item}>
+                  {item}
+                </ToggleGroupItem>
+              ))}
+            </ToggleGroup>
+            <p role="status" className="sr-only">
+              Total de eventos: {data.length}.
+            </p>
+          </>
+        }
       />
     </section>
   );

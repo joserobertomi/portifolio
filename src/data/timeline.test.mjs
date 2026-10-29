@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { filterTimeline, timeline } from "./timeline.ts";
+import { getTimelineStep } from "../lib/timeline-progress.ts";
 
 test("Tudo includes the complete journey in its original order", () => {
   assert.deepEqual(filterTimeline("Tudo"), timeline);
@@ -38,3 +39,26 @@ for (const [category, titles] of Object.entries(expectedTitles)) {
     );
   });
 }
+
+test("stages activate when the trace reaches each marker's actual position", () => {
+  const positions = [16, 220, 780];
+
+  for (const [progress, expected] of [
+    [0, -1],
+    [0.015, -1],
+    [0.016, 0],
+    [0.219, 0],
+    [0.22, 1],
+    [0.779, 1],
+    [0.78, 2],
+    [1, 2],
+    [0.5, 1],
+    [0, -1],
+  ]) {
+    assert.equal(getTimelineStep(progress, positions, 1000), expected);
+  }
+});
+
+test("an empty timeline has no active stage", () => {
+  assert.equal(getTimelineStep(1, [], 0), -1);
+});

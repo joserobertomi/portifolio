@@ -3,6 +3,7 @@ import { useScroll, useReducedMotion, motion } from "motion/react";
 import React, { useEffect, useRef, useState } from "react";
 
 interface TimelineEntry {
+  id: string;
   title: string;
   content: React.ReactNode;
 }
@@ -11,9 +12,10 @@ interface TimelineProps {
   data: TimelineEntry[];
   heading?: string;
   description?: string;
+  controls?: React.ReactNode;
 }
 
-export const Timeline = ({ data, heading, description }: TimelineProps) => {
+export const Timeline = ({ data, heading, description, controls }: TimelineProps) => {
   const ref = useRef<HTMLOListElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
@@ -49,7 +51,7 @@ export const Timeline = ({ data, heading, description }: TimelineProps) => {
 
   return (
     <div className="w-full bg-background text-foreground" ref={containerRef}>
-      {(heading || description) && (
+      {(heading || description || controls) && (
         <div className="mx-auto max-w-5xl px-5 pt-16 pb-12 sm:px-8 md:pt-20 md:pb-16">
           {heading && (
             <h2 className="text-3xl font-medium tracking-tight md:text-4xl">
@@ -61,20 +63,21 @@ export const Timeline = ({ data, heading, description }: TimelineProps) => {
               {description}
             </p>
           )}
+          {controls && <div className="mt-8">{controls}</div>}
         </div>
       )}
 
       <div className="relative mx-auto max-w-5xl px-5 pb-24 sm:px-8">
         <ol ref={ref} className="relative space-y-12 md:space-y-16">
-          {data.map((item, index) => (
-            <li key={index} className="relative flex items-start gap-5 md:gap-10">
-              <div className="relative z-10 w-8 shrink-0 self-start md:sticky md:top-28 md:w-52">
-                <div
-                  aria-hidden="true"
-                  className="absolute top-0 left-0 flex h-8 w-8 items-center justify-center bg-background"
-                >
-                  <div className="h-3 w-3 rounded-full border border-foreground/30 bg-background" />
-                </div>
+          {data.map((item) => (
+            <li key={item.id} className="relative flex items-start gap-5 md:gap-10">
+              <div
+                aria-hidden="true"
+                className="absolute top-0 left-0 z-10 flex h-8 w-8 items-center justify-center bg-background"
+              >
+                <div className="h-3 w-3 rounded-full border border-foreground/30 bg-background" />
+              </div>
+              <div className="relative z-10 w-8 shrink-0 self-start md:w-52">
                 <p className="hidden pl-14 text-2xl font-medium whitespace-nowrap text-foreground/70 md:block">
                   {item.title}
                 </p>
